@@ -113,6 +113,9 @@ class NrpeResponse
     return $this->_detailedServicePerfData;
   }
 
+  /**
+   * @return PerformanceMetric[]
+   */
   public function getPerformanceMetrics()
   {
     $this->_parseRaw();

@@ -29,6 +29,11 @@ class PerformanceMetric
     return $this->getUnitOfMeasure();
   }
 
+  public function getLabel()
+  {
+    return $this->_label;
+  }
+
   public function getUnitOfMeasure()
   {
     $this->_parseRaw();
