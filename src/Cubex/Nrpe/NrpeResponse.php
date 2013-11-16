@@ -114,9 +114,11 @@ class NrpeResponse
   }
 
   /**
+   * @param bool $keyed return metrics in a keyed array by metric label
+   *
    * @return PerformanceMetric[]
    */
-  public function getPerformanceMetrics()
+  public function getPerformanceMetrics($keyed = false)
   {
     $this->_parseRaw();
     if($this->_performanceMetrics === null)
@@ -130,7 +132,19 @@ class NrpeResponse
         $perfRaw = trim($perfRaw);
         if(!empty($perfRaw))
         {
-          $this->_performanceMetrics[] = new PerformanceMetric($perfRaw);
+          if(!$keyed)
+          {
+            $this->_performanceMetrics[] = new PerformanceMetric($perfRaw);
+          }
+          else
+          {
+            $metric = new PerformanceMetric($perfRaw);
+            //Store the label
+            if($metric->getLabel() !== null)
+            {
+              $this->_performanceMetrics[$metric->getLabel()] = $metric;
+            }
+          }
         }
       }
     }
